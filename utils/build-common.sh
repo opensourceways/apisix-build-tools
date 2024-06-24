@@ -82,17 +82,21 @@ build_apisix_runtime_rpm() {
         source /opt/rh/gcc-toolset-9/enable
         set -eu
     else
-        dnf install -y yum-utils
-        yum -y install --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms gcc gcc-c++ patch wget git make sudo xz cpanminus
+        # dnf install -y yum-utils
+        # dnf -y install --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms gcc gcc-c++ patch wget git make sudo xz cpanminus
+        dnf -y install gcc gcc-c++ patch wget git make sudo xz perl-CPAN
     fi
 
     command -v gcc
     gcc --version
 
-    yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
-    yum -y install openresty-pcre-devel openresty-zlib-devel
-
+    # yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+    # yum -y install openresty-pcre-devel openresty-zlib-devel
+    
+    dnf -y install openresty-openssl111-devel openresty-pcre-devel openresty-zlib-devel
+    
     export_openresty_variables
+    chmod +x ${BUILD_PATH}/build-apisix-runtime.sh
     ${BUILD_PATH}/build-apisix-runtime.sh
 }
 

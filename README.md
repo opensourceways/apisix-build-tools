@@ -23,6 +23,13 @@
 
 ### build APISIX
 
+Packaging a openeuler/openeuler 22.03 package of Apache APISIX
+```sh
+make package type=rpm app=apisix version=3.9.1 checkout=3.9.1 image_base=openeuler/openeuler image_tag=22.03
+ls output/
+apisix-3.9.1-0.el7.x86_64.rpm
+```
+
 Packaging a Centos 7 package of Apache APISIX
 ```sh
 make package type=rpm app=apisix version=2.2 checkout=2.2 image_base=centos image_tag=7
