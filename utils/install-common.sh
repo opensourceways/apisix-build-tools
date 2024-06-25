@@ -19,12 +19,14 @@ install_apisix_dependencies_rpm() {
 install_dependencies_rpm() {
     # install basic dependencies
     if [[ $IMAGE_BASE == "registry.access.redhat.com/ubi8/ubi" ]]; then
-        yum install -y --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms wget tar gcc automake autoconf libtool make curl git which unzip sudo
-        yum install -y --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms yum-utils
+        dnf install -y --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms wget tar gcc automake autoconf libtool make curl git which unzip sudo
+        dnf install -y --disablerepo=* --enablerepo=ubi-8-appstream-rpms --enablerepo=ubi-8-baseos-rpms yum-utils
     else
-        yum install -y wget tar gcc automake autoconf libtool make curl git which unzip sudo
-        yum install -y epel-release
-        yum install -y yum-utils readline-devel
+        dnf install -y wget tar gcc automake autoconf libtool make curl git which unzip sudo
+        curl -o /etc/yum.repos.d/epel-OpenEuler.repo https://down.whsir.com/downloads/epel-OpenEuler.repo
+        dnf install -y --skip-broken epel-release
+        # dnf install -y yum-utils readline-devel
+        dnf install -y readline-devel
     fi
 }
 
@@ -41,7 +43,7 @@ install_openresty_deb() {
 }
 
 install_openresty_rpm() {
-    yum install -y pcre pcre-devel openldap-devel
+    dnf install -y pcre pcre-devel openldap-devel
 }
 
 install_luarocks() {

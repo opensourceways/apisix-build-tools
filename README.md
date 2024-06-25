@@ -29,7 +29,20 @@ make package type=rpm app=apisix version=3.9.1 checkout=3.9.1 image_base=openeul
 ls output/
 apisix-3.9.1-0.el7.x86_64.rpm
 ```
+FAQ: That error may happen when building apisix rpm on Linux, detail message like bellow:
+```
+ > [stage-1 6/8] RUN /install-common.sh install_apisix_dependencies_rpm:                                         
+0.364 /usr/bin/env: 'bash\r': No such file or directory
+0.364 /usr/bin/env: use -[v]S to pass options in shebang lines
+```
+The error message suggests that the script you're invoking has embedded `\r` characters, which in turn suggests that it has Windows-style `\r\n` line endings (newlines) instead of the `\n`-only line endings bash expects.
 
+So we should change the code style from Windows to Linux, you can fix this error by following the steps:
+```
+1. vim install-common.sh
+2. :set ff=unix
+3. :wq!
+```
 Packaging a Centos 7 package of Apache APISIX
 ```sh
 make package type=rpm app=apisix version=2.2 checkout=2.2 image_base=centos image_tag=7
