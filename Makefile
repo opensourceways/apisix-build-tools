@@ -26,7 +26,7 @@ local_code_path=0
 openresty="apisix-runtime"
 artifact="0"
 runtime_version="0.0.1"
-apisix_repo="https://github.com/apache/apisix"
+apisix_repo="https://github.com/opensourceways/apisix"
 apisix_runtime_repo="https://github.com/opensourceways/apisix-build-tools.git"
 dashboard_repo="https://github.com/apache/apisix-dashboard"
 
